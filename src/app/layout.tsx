@@ -9,7 +9,7 @@ import { Toaster } from '@/components/ui/toaster';
 const lexend = Lexend({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Fitness Journey',
+  title: 'LevelUp',
 };
 
 export default function RootLayout({

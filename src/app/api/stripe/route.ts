@@ -40,8 +40,8 @@ export async function GET() {
           price_data: {
             currency: 'USD',
             product_data: {
-              name: 'Fitness Journey Premium',
-              description: 'Get your unlimited training generation!',
+              name: 'LevelUp Premium',
+              description: 'Get your unlimited course generation!',
             },
             unit_amount: 1999,
             recurring: {
