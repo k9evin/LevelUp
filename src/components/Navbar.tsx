@@ -53,6 +53,12 @@ const Navbar = async (props: Props) => {
               </Link>
             </>
           )}
+          <Link
+            href="/"
+            className="mr-3 hover:text-secondary-foreground/60"
+          >
+            About
+          </Link>
           <ThemeToggle className="mr-4" />
           <div className="flex items-center">
             {session?.user ? (
