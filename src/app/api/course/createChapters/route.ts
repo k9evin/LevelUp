@@ -54,7 +54,7 @@ export async function POST(req: Request, res: Response) {
       imageSearchTerm.image_search_term
     );
 
-    console.log({ output_units, course_image });
+    // console.log({ output_units, course_image });
 
     const course = await prisma.course.create({
       data: {
