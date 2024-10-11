@@ -5,6 +5,7 @@ import { Lexend } from 'next/font/google';
 import Navbar from '@/components/Navbar';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/toaster';
+import { Analytics } from '@vercel/analytics/react';
 
 const lexend = Lexend({ subsets: ['latin'] });
 
@@ -26,6 +27,7 @@ export default function RootLayout({
         <ThemeProvider>
           <Navbar />
           {children}
+          <Analytics />
           <Toaster />
         </ThemeProvider>
       </body>
