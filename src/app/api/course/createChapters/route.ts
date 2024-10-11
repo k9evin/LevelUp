@@ -31,9 +31,9 @@ export async function POST(req: Request, res: Response) {
     }[];
 
     let output_units: outputUnits = await strict_output(
-      'You are an AI capable of curating course content, coming up with relevant chapter titles, and finding relevant youtube videos for each chapter',
+      'You are an AI capable of curating course content, coming up with relevant chapter titles, and finding relevant YouTube videos for each chapter',
       new Array(units.length).fill(
-        `It is your job to create a course about ${title}. The user has requested to create chapters for each of the units. Then, for each chapter, provide a detailed youtube search query that can be used to find an informative educationalvideo for each chapter. Each query should give an educational informative course in youtube.`
+        `Create a course about ${title}. For each unit, provide detailed chapter titles and YouTube search queries that yield informative educational videos.`
       ),
       {
         title: 'title of the unit',
@@ -43,8 +43,8 @@ export async function POST(req: Request, res: Response) {
     );
 
     const imageSearchTerm = await strict_output(
-      'you are an AI capable of finding the most relevant image for a course',
-      `Please provide a good image search term for the title of a course about ${title}. This search term will be fed into the unsplash API, so make sure it is a good search term that will return good results`,
+      'You are an AI capable of finding the most relevant image for a course',
+      `Provide a good image search term for the title of a course about ${title}. This search term will be fed into the Unsplash API, ensuring it returns good results.`,
       {
         image_search_term: 'a good search term for the title of the course',
       }
@@ -54,8 +54,6 @@ export async function POST(req: Request, res: Response) {
       imageSearchTerm.image_search_term
     );
 
-    // console.log({ output_units, course_image });
-
     const course = await prisma.course.create({
       data: {
         name: title,
@@ -63,24 +61,23 @@ export async function POST(req: Request, res: Response) {
       },
     });
 
-    for (const unit of output_units) {
-      const title = unit.title;
+    const unitPromises = output_units.map(async (unit) => {
       const prismaUnit = await prisma.unit.create({
         data: {
-          name: title,
+          name: unit.title,
           courseId: course.id,
         },
       });
       await prisma.chapter.createMany({
-        data: unit.chapters.map((chapter) => {
-          return {
-            name: chapter.chapter_title,
-            youtubeSearchQuery: chapter.youtube_search_query,
-            unitId: prismaUnit.id,
-          };
-        }),
+        data: unit.chapters.map((chapter) => ({
+          name: chapter.chapter_title,
+          youtubeSearchQuery: chapter.youtube_search_query,
+          unitId: prismaUnit.id,
+        })),
       });
-    }
+    });
+
+    await Promise.all(unitPromises);
 
     if (!isPremium) {
       await prisma.user.update({
@@ -101,5 +98,6 @@ export async function POST(req: Request, res: Response) {
       return new NextResponse('invalid body', { status: 400 });
     }
     console.error(error);
+    return new NextResponse('internal server error', { status: 500 });
   }
 }

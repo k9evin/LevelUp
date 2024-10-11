@@ -8,7 +8,6 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
 } from './ui/dropdown-menu';
-import { Button } from './ui/button';
 import { User } from 'next-auth';
 import { signOut } from 'next-auth/react';
 import { CreditCard, LogOut, UserIcon } from 'lucide-react';
@@ -37,7 +36,7 @@ const UserAccountNav = ({ user }: Props) => {
           onSelect={() => {
             signOut();
           }}
-          className="cursor-pointer"
+          className="cursor-pointer text-red-500"
         >
           <LogOut className="w-4 h-4 mr-2" />
           <span>Sign Out</span>

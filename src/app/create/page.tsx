@@ -23,10 +23,19 @@ const CreatePage = async (props: Props) => {
       <Alert className="mt-5 w-full">
         <InfoIcon className="h-4 w-4" />
         <AlertDescription>
-          Start by entering a course title or the subject you wish to explore.
-          Then, specify the particular units or topics you would like to include
-          in your course. Our AI will craft a tailor-made course just for you,
-          making the learning experience as personalized as possible.
+          <ol className="list-decimal pl-5">
+            <li>
+              Start by entering a course title or the subject you want to
+              explore.
+            </li>
+            <li>
+              Specify the units or topics you wish to include in your course.
+            </li>
+            <li>
+              Our AI will then generate a personalized course tailored to your
+              needs, ensuring a unique learning experience.
+            </li>
+          </ol>
         </AlertDescription>
       </Alert>
       <CreateCourseForm isPremium={isPremium} />

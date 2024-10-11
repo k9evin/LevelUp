@@ -10,6 +10,9 @@ const lexend = Lexend({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'LevelUp - AI-powered learning platform',
+  icons: {
+    icon: '/favicon.ico',
+  },
 };
 
 export default function RootLayout({
@@ -19,7 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={cn(lexend.className, 'antialiased min-h-screen pt-16')}>
+      <body className={cn(lexend.className, 'antialiased min-h-screen')}>
         <ThemeProvider>
           <Navbar />
           {children}

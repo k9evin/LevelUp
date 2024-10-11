@@ -8,6 +8,7 @@ declare module 'next-auth' {
     user: {
       id: string;
       credits: number;
+      image?: string; // Ensure this is optional
     } & DefaultSession['user'];
   }
 }
@@ -16,6 +17,7 @@ declare module 'next-auth/jwt' {
   interface JWT {
     id: string;
     credits: number;
+    picture?: string; // Ensure this is optional
   }
 }
 
@@ -41,7 +43,7 @@ export const authOptions: NextAuthOptions = {
         session.user.id = token.id;
         session.user.name = token.name;
         session.user.email = token.email;
-        session.user.image = token.picture;
+        session.user.image = token.picture; // Ensure this is correctly assigned
         session.user.credits = token.credits;
       }
       return session;
@@ -59,4 +61,4 @@ export const authOptions: NextAuthOptions = {
 
 export const getAuthSession = () => {
   return getServerSession(authOptions);
-}
+};
