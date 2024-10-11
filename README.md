@@ -28,7 +28,7 @@ Make sure you have the following installed before you start:
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/your-username/levelup.git
+   git clone https://github.com/k9evin/levelup.git
    cd levelup
    ```
 
